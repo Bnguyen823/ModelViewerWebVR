@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Most Basic Super-Hands Example</title>
+		<script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+		<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.0/dist/aframe-physics-system.min.js"></script>
+		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.12.4/dist/aframe-extras.min.js"></script>
+		<script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+		<script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
+	</head>
+	<body>
+		<a-scene physics="gravity: 0">
+			<a-assets>
+				<img id="sky" src="assets/skybox.png"></img>
+				<a-asset-item id="bread-obj" src="assets/models/bread/source/Brown Bread.obj"></a=asset-item>
+				<a-asset-item id="bread-mtl" src="assets/models/bread/source/Brown Bread.mtl"></a=asset-item>
+			</a-assets>
+			<!--Ground-->
+			<a-plane color="white" position="0 0 -1" static-body="shape: box" rotation="270 0 0" scale="10 10 10"></a-plane>
+			<a-sky src="#sky"></a-sky>
+	    <a-entity progressive-controls></a-entity>
+			<!--Test Entities-->
+	    <a-box hoverable grabbable stretchable draggable droppable
+	    color="blue" position="0 1 0" scale=".1 .1 .1" dynamic-body="shape: auto"></a-box>
+			<a-sphere hoverable grabbable strechable draggable droppable
+			color="red" position="1 1 0" scale=".1 .1 .1" dynamic-body="shape: sphere"></a-sphere>
+			<!--Model-->
+			<a-entity hoverable grabbable stretchable draggable droppable sleepy collision-filter="collisionForces: false"
+			scale="0.01 0.01 0.01" position="0 2 0" dynamic-body="shape: auto"
+			obj-model="obj:assets/models/bread/source/Brown Bread.obj;mtl:assets/models/bread/source/Brown Bread.mtl" ></a-entity>
+			<!--Player-->
+			<a-entity progressive-controls id="cameraRig" position="0 0 0"></a-entity>
+		</a-scene>
+</body>

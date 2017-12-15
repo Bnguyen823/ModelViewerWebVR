@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>A-Frame Super Hands Component - Vive With Physics</title>
+    <script src="https://aframe.io/releases/0.7.1/aframe.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.0/dist/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <!-- Replace "../build.js" with the super-hands distribution to run locally:
+        "https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js" -->
+    <script src="../build.js"></script>
+    <script>
+      //color randomizer
+      AFRAME.registerComponent('color-randomizer', {
+        play: function () {
+          this.el.addEventListener('drag-drop', function (evt) {
+            evt.detail.dropped.setAttribute('material', 'color',
+              '#'+(Math.random()*0xFFFFFF&lt;&lt;0).toString(16));
+            // color randomizer credit: http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript#comment6801353_5365036
+          });
+        }
+      });
+      // turn controller's physics presence on only while button held down
+      AFRAME.registerComponent('phase-shift', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('gripdown', function () {
+            el.setAttribute('collision-filter', {collisionForces: true});
+          });
+          el.addEventListener('gripup', function () {
+            el.setAttribute('collision-filter', {collisionForces: false});
+          });
+        }
+      });
+    </script>
+    <link rel="stylesheet" type="text/css" href="../assets/examples.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%7CRoboto+Mono" media="all" /></head>
+  <body class="a-body ">
+    <button id="replayer-button" type="button" onclick="playDemoRecording()">
+      Don't have a Vive or Rift handy? Click here for a preview.
+    </button>
+    <a-scene physics="" environment="active:true;seed:14;skyType:gradient;skyColor:#091b39;horizonColor:#284a9e;lightPosition:-0.72 0.62 0.4;fog:0.8;ground:spikes;groundYScale:4.91;groundColor:#061123;dressing:towers;dressingAmount:5;dressingColor:#fb000e;dressingScale:15;dressingVariance:20 20 20;grid:1x1;gridColor:#fb000e;shadow:true;preset:tron" class="fullscreen" inspector="" keyboard-shortcuts="" screenshot="" vr-mode-ui="" fog="color:#1b336e;far:83.99999999999999" visible=""><canvas class="a-canvas" data-aframe-canvas="true" width="375" height="187"></canvas>
+      <a-assets>
+        <img id="colortransform" src="./colortransform.png">
+        <a-mixin id="cube" geometry="primitive: box; width: 0.33; height: 0.33; depth: 0.33" hoverable="" grabbable="" stretchable="" draggable="" dynamic-body="" shadow=""></a-mixin>
+        <a-mixin id="cube-hovered" material="opacity: 0.7; transparent: true">
+        </a-mixin>
+        <a-mixin id="cube-dragover" material="wireframe: true;"></a-mixin>
+        <a-mixin id="transformer" color-randomizer="" droppable="" static-body="" collision-filter="collisionForces: false" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"></a-mixin>
+        <!-- to customize gaze cursor appearance. must list all components
+             because override property is set on progressive-controls -->
+        <a-mixin id="mycursor" position="0 0 -0.5" raycaster="" geometry="primitive: ring; radiusOuter: 0.008; radiusInner: 0.005; segmentsTheta: 32" material="color: white; shader: flat" static-body="shape: sphere; sphereRadius: 0.001" super-hands="colliderEvent: raycaster-intersection;
+                              colliderEventProperty: els;
+                              colliderEndEvent:raycaster-intersection-cleared;
+                              colliderEndEventProperty:el;
+                              colliderState:"></a-mixin>
+        <!-- to change touch mode collider -->
+        <a-mixin id="mytouch" physics-collider="" phase-shift="" collision-filter="collisionForces: false" static-body="shape: sphere; sphereRadius: 0.02" super-hands="colliderEvent: collisions; colliderEventProperty: els;
+                              colliderEndEvent: collisions; colliderEndEventProperty: clearedEls;
+                              colliderState:"></a-mixin>
+        <img id="portals-preview" src="../assets/portals.jpg">
+      <a-mixin id="progressivecontrolsgazedefault" geometry="primitive: ring;radiusOuter: 0.008; radiusInner: 0.005; segmentsTheta: 32" material="color: #000; shader: flat" position="0 0 -0.5" raycaster="objects:" super-hands="colliderEvent:raycaster-intersection;colliderEventProperty:els;colliderEndEvent:raycaster-intersection-cleared;colliderEndEventProperty:el;colliderState:" static-body="shape: sphere; sphereRadius: 0.02"></a-mixin><a-mixin id="progressivecontrolspointdefault" raycaster="showLine:true;objects:" super-hands="colliderEvent:raycaster-intersection;colliderEventProperty:els;colliderEndEvent:raycaster-intersection-cleared;colliderEndEventProperty:el;colliderState:" static-body="shape: sphere; sphereRadius: 0.02"></a-mixin><a-mixin id="progressivecontrolstouchdefault" super-hands="" sphere-collider="" static-body="shape: sphere; sphereRadius: 0.02"></a-mixin></a-assets>
+      <a-entity progressive-controls="gazeMixin:mycursor;touchMixin:mytouch;override:true">
+        <!-- listing controller entities to set IDs for MoCap replay optional for normal use -->
+        <a-entity id="rhand" class="right-controller" position="-0.35868051648139954 1.2662715911865234 -0.3797377347946167" rotation="-78.19582960489494 84.76813457753336 43.89525787430429" daydream-controls="hand:right" gearvr-controls="hand:right" oculus-touch-controls="hand:right" vive-controls="hand:right" windows-motion-controls="" tracked-controls="id:Oculus Touch (Right)" obj-model="obj:https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-right.obj;mtl:https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-right.mtl" mixin="mytouch" physics-collider="" phase-shift=""></a-entity>
+        <a-entity id="lhand" class="left-controller" position="-0.45029446482658386 1.2738369703292847 -0.4853260815143585" rotation="-77.33534298973493 11.881147404778739 -53.42819467582052" daydream-controls="hand:left" gearvr-controls="hand:left" oculus-touch-controls="" vive-controls="" windows-motion-controls="hand:left" tracked-controls="id:Oculus Touch (Left)" obj-model="obj:https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-left.obj;mtl:https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-left.mtl" mixin="mytouch" physics-collider="" phase-shift=""></a-entity>
+      <a-camera position="0 1.6 0" rotation="16.796171632621977 27.919721164940484 -0.11248512150259385" camera="" look-controls="" wasd-controls="" data-aframe-inspector-original-camera=""></a-camera></a-entity>
+      <a-entity class="cube" mixin="cube" position="-0.0005191414521344812 0.16549758837206294 -0.9992508558218681" material="color:red" hoverable="" grabbable="maxGrabbers:NaN" stretchable="" draggable="" quaternion="-0.0000018465238096805182 -1.6117566293869674e-7 -0.0000018859586630821532 0.9999999999965039" velocity="" dynamic-body="sphereRadius:NaN" shadow=""></a-entity>
+      <a-entity class="cube" mixin="cube" position="-0.0005257819987900157 0.16549758837206294 -0.49924605999042054" material="color:red" hoverable="" grabbable="maxGrabbers:NaN" stretchable="" draggable="" quaternion="-0.0000018465238096753132 -1.6117567492915363e-7 -0.0000018859586630766452 0.9999999999965039" velocity="" dynamic-body="sphereRadius:NaN" shadow=""></a-entity>
+      <a-entity class="cube" mixin="cube" position="-1.0005191414521337 0.1654975883720629 -0.9992508558218682" material="color:blue" hoverable="" grabbable="maxGrabbers:NaN" stretchable="" draggable="" quaternion="-0.0000018465238096656551 -1.611756629386983e-7 -0.0000018859586630690424 0.9999999999965039" velocity="" dynamic-body="sphereRadius:NaN" shadow=""></a-entity>
+      <a-entity class="cube" mixin="cube" position="-1.000519141452134 0.1654975883720629 -0.49925085582186846" material="color:blue" hoverable="" grabbable="maxGrabbers:NaN" stretchable="" draggable="" quaternion="-0.0000018465238096616912 -1.6117566293856016e-7 -0.000001885958663083084 0.9999999999965039" velocity="" dynamic-body="sphereRadius:NaN" shadow=""></a-entity>
+      <a-entity class="cube" mixin="cube" position="0.9994808585478652 0.1654975883720629 -0.999250855821868" material="color:green" hoverable="" grabbable="maxGrabbers:NaN" stretchable="" draggable="" quaternion="-0.0000018465238096733985 -1.6117566293851278e-7 -0.0000018859586630661458 0.9999999999965039" velocity="" dynamic-body="sphereRadius:NaN" shadow=""></a-entity>
+      <a-entity class="cube" mixin="cube" position="0.9994808585478654 0.1654975883720629 -0.49925085582186834" material="color:green" hoverable="" grabbable="maxGrabbers:NaN" stretchable="" draggable="" quaternion="-0.000001846523809679911 -1.611756629386938e-7 -0.0000018859586630601178 0.9999999999965039" velocity="" dynamic-body="sphereRadius:NaN" shadow=""></a-entity>
+      <a-entity class="transformer" mixin="transformer" position="0 1.6 -1" material="src:[object HTMLImageElement]" shadow="" color-randomizer="" droppable="" static-body="sphereRadius:NaN"></a-entity>
+      <!-- ground collider keeps objets from falling -->
+      <a-box static-body="sphereRadius:NaN" width="100" height="0.001" depth="100" visible="false" material="" geometry=""></a-box>
+      <a-link href="../portals.html" title="Other Examples" image="#portals-preview" onmouseover="this.setAttribute('link', {highlighted: true})" onmouseout="this.setAttribute('link', {highlighted: false})" position="0 1.6 0.7" scale="0.25 0.25 0.25" geometry="primitive:circle;segments:64" material="pano:https://wmurphyrd.github.io/aframe-super-hands-component/examples/assets/portals.jpg;shader:portal;side:double" link="">
+      <a-entity text="width:5;color:white;align:center;font:kelsonsans;value:Other Examples" position="0 1.5 0" rotation="0 180 0"></a-entity><a-entity geometry="primitive:sphere;segmentsWidth:64;segmentsHeight:64;phiLength:180;thetaLength:360" material="shader:portal;borderEnabled:0;pano:[object HTMLImageElement];side:back" rotation="0 180 0" visible="false"></a-entity><a-entity geometry="primitive:sphere;radius:10;segmentsWidth:64;segmentsHeight:64" material="shader:portal;borderEnabled:0;pano:[object HTMLImageElement];side:back" visible="false"></a-entity></a-link>
+    <a-entity position="0 50 0" light="groundColor:#061123;intensity:0.6;color:#848d9c;type:hemisphere"></a-entity><a-entity position="-0.72 0.62 0.4" light="castShadow:true;shadowCameraLeft:-10;shadowCameraBottom:-10;shadowCameraRight:10;shadowCameraTop:10;intensity:0.6"></a-entity><a-entity rotation="-90 0 0" class="environmentGround" scale="1 1 4.91" shadow="cast:false"></a-entity><a-entity></a-entity><a-sky radius="200" theta-length="110" material="shader:gradientshader;topColor:#091b39;bottomColor:#284a9e" geometry=""></a-sky></a-scene>
+
+    <!-- GitHub Corner. -->
+    <a href="https://github.com/wmurphyrd/aframe-super-hands-component" class="github-corner">
+      <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 250 250" style="fill:#222; color:#fff; position: absolute; top: 0; border: 0; right: 0;">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+      </svg>
+    </a>
+    <style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+  &lt;/body&gt;
+&lt;/html&gt;
+</style><a style="display: none;" href="blob:https://wmurphyrd.github.io/6457e5ea-cd81-4841-8b50-bf1930f9f801" download="wmurphyrd-github-io-aframe-super-hands-component-examples-physics"></a></body></html>
