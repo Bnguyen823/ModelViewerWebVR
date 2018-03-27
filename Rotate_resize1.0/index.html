@@ -2,7 +2,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Most Basic Super-Hands Example</title>
-		<script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+		<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
 		<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.0/dist/aframe-physics-system.min.js"></script>
 		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.12.4/dist/aframe-extras.min.js"></script>
 		<script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
@@ -14,22 +14,23 @@
 				<img id="sky" src="assets/skybox.png"></img>
 			</a-assets>
 			<!--Ground-->
-			<a-plane color="white" position="0 0 -1" static-body="shape: box" rotation="270 0 0" scale="10 10 10"></a-plane>
+			<a-plane color="white" position="0 0 -1" static-body="shape: auto" rotation="270 0 0" scale="10 10 10"></a-plane>
 			<a-sky src="#sky"></a-sky>
-	    <a-entity progressive-controls></a-entity>
+			<!--Player-->
+	    <a-entity progressive-controls="controllerModel: false" position="0 1.25 0"></a-entity>
 			<!--Test Entities-->
 	    <a-box hoverable grabbable stretchable draggable droppable
-	    color="blue" position="0 1 0" scale=".1 .1 .1" dynamic-body="shape: auto"></a-box>
+	    color="blue" position="0 2 0" scale=".1 .1 .1" dynamic-body="shape: auto"></a-box>
 			<a-sphere hoverable grabbable strechable draggable droppable
 			color="red" position="1 1 0" scale=".1 .1 .1" dynamic-body="shape: sphere"></a-sphere>
-			<!--Model-->
-			<a-entity hoverable grabbable stretchable draggable droppable sleepy collision-filter="collisionForces: false"
-			scale="0.01 0.01 0.01" position="0 2 0" dynamic-body="shape: auto"
-			obj-model="obj:assets/models/bread/source/Brown Bread.obj;mtl:assets/models/bread/source/Brown Bread.mtl" ></a-entity>
-			<a-entity hoverable grabbable stretchable draggable droppable sleepy collision-filter="collisionForces: false"
-			scale="0.25 0.25 0.25" position="0 0 0" dynamic-body="shape: box"
+			<!--Models-->
+			<a-entity hoverable grabbable stretchable draggable droppable sleepy collision-filter="collisionForces: true"
+			scale="0.01 0.01 0.01" position="0 1 0" dynamic-body="shape: auto"
+			obj-model="obj:assets/models/bread/source/Brown_Bread.obj;mtl:assets/models/bread/source/Brown_Bread.mtl" ></a-entity>
+			<a-entity hoverable grabbable stretchable draggable droppable sleepy collision-filter="collisionForces: true"
+			scale="0.0005 0.0005 0.0005" position="0 1.5 0" dynamic-body="shape: auto"
+			obj-model="obj:assets/models/cassette/Darth Cassette Google-1.obj;mtl:assets/models/cassette/Darth_Cassette_Google-1.mtl" ></a-entity>
+			<a-entity scale="0.25 0.25 0.25" position="0 -0.004 0" static-body="shape: box"
 			obj-model="obj:assets/models/table/Futuristic Table.obj;mtl:assets/models/table/Futuristic Table.mtl" ></a-entity>
-			<!--Player-->
-			<a-entity progressive-controls id="cameraRig" position="0 0 0"></a-entity>
 		</a-scene>
 </body>
