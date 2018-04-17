@@ -1,0 +1,7 @@
+node_modules
+!reaction_components/node_modules/
+npm-debug.log
+.Rhistory
+README.html
+.bashcommands
+firefox/
