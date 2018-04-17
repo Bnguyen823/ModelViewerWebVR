@@ -2,11 +2,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Most Basic Super-Hands Example</title>
-		<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-		<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v2.1.0/dist/aframe-physics-system.min.js"></script>
-		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.12.4/dist/aframe-extras.min.js"></script>
-		<script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
-		<script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
+		<script src="../scripts/v0.8.0/aframe-master/dist/aframe-v0.8.0.min.js"></script>
+		<script src="../scripts/v0.8.0/aframe-physics-system-master/dist/aframe-physics-system.min.js"></script>
+		<script src="../scripts/v0.8.0/aframe-extras-master/dist/aframe-extras.min.js"></script>
+		<script src="../scripts/v0.8.0/aframe-super-hands-component-master/dist/super-hands.min.js"></script>
 	</head>
 	<body>
 		<a-scene stats physics="gravity: 0">
@@ -17,7 +16,7 @@
 			<a-plane color="white" position="0 0 -1" static-body="shape: auto" rotation="270 0 0" scale="10 10 10"></a-plane>
 			<a-sky src="#sky"></a-sky>
 			<!--Player-->
-	    <a-entity progressive-controls="controllerModel: false" position="0 1.25 0"></a-entity>
+	    <a-entity progressive-controls="controllerModel: true" position="0 0 0"></a-entity>
 			<!--Test Entities-->
 	    <a-box hoverable grabbable stretchable draggable droppable
 	    color="blue" position="0 2 0" scale=".1 .1 .1" dynamic-body="shape: auto"></a-box>
@@ -33,4 +32,5 @@
 			<a-entity scale="0.25 0.25 0.25" position="0 -0.004 0" static-body="shape: box"
 			obj-model="obj:assets/models/table/Futuristic Table.obj;mtl:assets/models/table/Futuristic Table.mtl" ></a-entity>
 		</a-scene>
-</body>
+	</body>
+</html>
