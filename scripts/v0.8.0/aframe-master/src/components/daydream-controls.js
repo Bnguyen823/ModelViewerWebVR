@@ -5,9 +5,8 @@ var trackedControlsUtils = require('../utils/tracked-controls');
 var emitIfAxesChanged = trackedControlsUtils.emitIfAxesChanged;
 var onButtonEvent = trackedControlsUtils.onButtonEvent;
 
-var DAYDREAM_CONTROLLER_MODEL_BASE_URL = 'https://cdn.aframe.io/controllers/google/';
-var DAYDREAM_CONTROLLER_MODEL_OBJ_URL = DAYDREAM_CONTROLLER_MODEL_BASE_URL + 'vr_controller_daydream.obj';
-var DAYDREAM_CONTROLLER_MODEL_OBJ_MTL = DAYDREAM_CONTROLLER_MODEL_BASE_URL + 'vr_controller_daydream.mtl';
+var DAYDREAM_CONTROLLER_MODEL_OBJ_URL = 'vr_controller_daydream.obj';
+var DAYDREAM_CONTROLLER_MODEL_OBJ_MTL = 'vr_controller_daydream.mtl';
 
 var GAMEPAD_ID_PREFIX = 'Daydream Controller';
 

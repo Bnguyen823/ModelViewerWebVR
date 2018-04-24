@@ -5,9 +5,8 @@ var checkControllerPresentAndSetup = trackedControlsUtils.checkControllerPresent
 var emitIfAxesChanged = trackedControlsUtils.emitIfAxesChanged;
 var onButtonEvent = trackedControlsUtils.onButtonEvent;
 
-var GEARVR_CONTROLLER_MODEL_BASE_URL = 'https://cdn.aframe.io/controllers/samsung/';
-var GEARVR_CONTROLLER_MODEL_OBJ_URL = GEARVR_CONTROLLER_MODEL_BASE_URL + 'gear_vr_controller.obj';
-var GEARVR_CONTROLLER_MODEL_OBJ_MTL = GEARVR_CONTROLLER_MODEL_BASE_URL + 'gear_vr_controller.mtl';
+var GEARVR_CONTROLLER_MODEL_OBJ_URL = 'gear_vr_controller.obj';
+var GEARVR_CONTROLLER_MODEL_OBJ_MTL = 'gear_vr_controller.mtl';
 
 var GAMEPAD_ID_PREFIX = 'Gear VR|GearVR|Oculus Go';
 

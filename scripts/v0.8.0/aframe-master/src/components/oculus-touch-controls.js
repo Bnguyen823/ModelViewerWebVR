@@ -3,7 +3,7 @@ var registerComponent = require('../core/component').registerComponent;
 var trackedControlsUtils = require('../utils/tracked-controls');
 var onButtonEvent = trackedControlsUtils.onButtonEvent;
 
-var TOUCH_CONTROLLER_MODEL_BASE_URL = 'https://cdn.aframe.io/controllers/oculus/oculus-touch-controller-';
+var TOUCH_CONTROLLER_MODEL_BASE_URL = 'oculus-touch-controller-';
 var TOUCH_CONTROLLER_MODEL_OBJ_URL_L = TOUCH_CONTROLLER_MODEL_BASE_URL + 'left.obj';
 var TOUCH_CONTROLLER_MODEL_OBJ_MTL_L = TOUCH_CONTROLLER_MODEL_BASE_URL + 'left.mtl';
 var TOUCH_CONTROLLER_MODEL_OBJ_URL_R = TOUCH_CONTROLLER_MODEL_BASE_URL + 'right.obj';
